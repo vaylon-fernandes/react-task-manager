@@ -1,0 +1,26 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dark {
+    @apply bg-gray-800 text-zinc-50;
+ }
+
+ 
+ /* body > div:nth-child(4) > div{
+    color:blueviolet
+ } */
+
+ .dark .mantine-Select-dropdown		{
+    background-color: #1e293b ;
+ }
+
+ .dark .mantine-Select-option:hover{
+   background-color: #3d608c;
+ }
+
+ .dark .mantine-Select-input, .dark .mantine-TextInput-input 	{
+   background-color: #3d608c;
+   color: aliceblue;
+ }
