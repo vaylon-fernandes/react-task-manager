@@ -19,6 +19,7 @@ export const ThemeContextProvider: ({
   useEffect(() => {
     if (theme === "light") document.body.classList.remove("dark");
     else document.body.classList.add("dark");
+    console.log(theme);
   }, [theme]);
 
   return (

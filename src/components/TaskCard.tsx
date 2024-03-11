@@ -8,6 +8,7 @@ const TaskCard = (props: ITasks) => {
     Doing: string;
     Done: string;
   } = { ToDo: "red", Doing: "blue", Done: "green" };
+  console.log(color["TODO"]);
   return (
     <div className="">
       <Card
@@ -18,11 +19,7 @@ const TaskCard = (props: ITasks) => {
       >
         <Group className="max-sm:p-1" justify={"space-between"}>
           <Text className="max-sm:text-sm font-medium">{props.task}</Text>
-          <Badge
-            color={color[props.status.replace(" ", "")]}
-            size="xs"
-            variant="dark"
-          >
+          <Badge color={color[props.status.replace(" ", "")]} size="xs">
             {props.status}
           </Badge>
         </Group>

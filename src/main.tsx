@@ -6,11 +6,12 @@ import StatusWiseTasks from "./components/StatusWiseTasks";
 import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
 import "./index.css";
+import { ThemeContextProvider } from "./components/ThemeContextProvider";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App></App>,
+    element: <App />,
   },
   {
     path: "status-wise-tasks",
@@ -20,6 +21,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <MantineProvider>
-    <RouterProvider router={router} />
+    <ThemeContextProvider>
+      <RouterProvider router={router} />
+    </ThemeContextProvider>
   </MantineProvider>
 );

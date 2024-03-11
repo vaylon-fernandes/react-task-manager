@@ -14,20 +14,26 @@ function FilteredTable(props: { tasks: ITasks[] }) {
 
   const statuses: string[] = ["To Do", "Doing", "Done"];
 
-  const rows = (
-    <Table.Tr>
-      {statuses.map((status, index) => (
-        <Table.Td key={index} mt={2}>{filterByStatus(status)}</Table.Td>
+  const maxRowCount = Math.max(
+    ...statuses.map((status) => filterByStatus(status).length)
+  );
+
+  const rows = Array.from({ length: maxRowCount }, (_, rowIndex) => (
+    <Table.Tr key={rowIndex} style={{ border: "none" }}>
+      {statuses.map((status, colIndex) => (
+        <Table.Td key={colIndex} mt={2}>
+          {filterByStatus(status)[rowIndex] || null}
+        </Table.Td>
       ))}
     </Table.Tr>
-  );
+  ));
 
   return (
     <Table horizontalSpacing="sm" layout={"fixed"}>
       <Table.Thead>
         <Table.Tr>
-          {statuses.map((status) => (
-            <Table.Th>{status}</Table.Th>
+          {statuses.map((status, index) => (
+            <Table.Th key={index}>{status}</Table.Th>
           ))}
         </Table.Tr>
       </Table.Thead>
