@@ -1,4 +1,4 @@
-import { TaskManager } from "./components/TaskManager";
+import { TaskManager } from "./pages/TaskManager";
 
 function App() {
   return <TaskManager />;

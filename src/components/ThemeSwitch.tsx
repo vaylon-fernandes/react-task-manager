@@ -1,6 +1,6 @@
 import { ActionIcon } from "@mantine/core";
 import { useContext } from "react";
-import ThemeContext from "./ThemeContext";
+import ThemeContext from "../providers/ThemeContext";
 import { IconSun, IconMoon } from "@tabler/icons-react";
 
 const ThemeSwitch = () => {

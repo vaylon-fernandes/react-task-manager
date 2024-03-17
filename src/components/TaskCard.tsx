@@ -12,7 +12,7 @@ const TaskCard = (props: ITasks) => {
   return (
     <div className="">
       <Card
-        className="shadow-lg max-sm:p-0 dark:bg-big-stone-700 dark:text-zinc-50"
+        className="shadow-lg dark:shadow-big-stone-600 dark:border-big-stone-700 max-sm:p-0 dark:bg-big-stone-700 dark:text-zinc-50"
         radius={"sm"}
         mb={10}
         withBorder
