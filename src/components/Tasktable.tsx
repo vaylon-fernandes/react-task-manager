@@ -4,9 +4,9 @@ import { ITasks } from "../interfaces/ITasks";
 function TaskTable(props: { tasks: ITasks[] }) {
   const rows = props.tasks.map((task, index) => (
     <Table.Tr key={index}>
-      <Table.Td>{task.task}</Table.Td>
+      <Table.Td>{task.name}</Table.Td>
       <Table.Td>{task.status}</Table.Td>
-      <Table.Td>{new Date().toLocaleString()}</Table.Td>
+      <Table.Td>{task.createdAt}</Table.Td>
     </Table.Tr>
   ));
 

@@ -12,22 +12,40 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { useForm, yupResolver } from "@mantine/form";
 import TaskTable from "../components/Tasktable";
-import { useManageTasks } from "../hooks/useManageTasks";
+// import { useManageTasks } from "../hooks/useManageTasks";
 import ThemeSwitch from "../components/ThemeSwitch";
 import LinkButton from "../components/LinkButton";
 import { addTaskSchema } from "../schema/addTaskSchema";
+import { useEffect, useState } from "react";
+import { ITasks } from "../interfaces/ITasks";
+import axios from "../lib/axios";
 
 export const TaskManager = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const form = useForm({
     initialValues: {
-      task: "",
+      name: "",
       status: "",
     },
     validate: yupResolver(addTaskSchema),
   });
 
-  const taskManager = useManageTasks();
+  // const taskManager = useManageTasks();
+  const [tasks, setTasks] = useState<ITasks[]>([]);
+  useEffect(() => {
+    const data = async () =>
+      await axios.get("/ToDoItems").then((res) => setTasks(res.data));
+    // console.log(data);
+    data();
+    // setTasks(taskManager.tasks);
+  }, []);
+
+  const handleSubmit = async (data: ITasks) =>
+    await axios
+      .post("/ToDoItems", { ...data })
+      .then((res) => setTasks((prevTasks) => [...prevTasks, res.data]));
+
+  // const handleSubmit = async (data: ITasks) => await console.log(data);
 
   return (
     <div className="">
@@ -62,7 +80,9 @@ export const TaskManager = () => {
               <Modal.Body className="dark:bg-big-stone-800">
                 <form
                   onSubmit={form.onSubmit((values) => {
-                    taskManager.addTask(values);
+                    // taskManager.addTask(values);
+                    console.log(values);
+                    handleSubmit(values);
                     close();
                     form.reset();
                   })}
@@ -71,7 +91,7 @@ export const TaskManager = () => {
                     data-autofocus
                     label="Task"
                     placeholder="Task"
-                    {...form.getInputProps("task")}
+                    {...form.getInputProps("name")}
                   />
                   <Select
                     label="Status"
@@ -93,9 +113,9 @@ export const TaskManager = () => {
           </Button>
           {/* table */}
           <Box maw={800}>
-            <TaskTable tasks={taskManager.tasks}></TaskTable>
+            <TaskTable tasks={tasks}></TaskTable>
           </Box>
-          {taskManager.tasks.length !== 0 && (
+          {tasks.length !== 0 && (
             <LinkButton to="/status-wise-tasks" name="Task By Status" />
           )}
         </Flex>

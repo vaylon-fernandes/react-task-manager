@@ -18,7 +18,7 @@ const TaskCard = (props: ITasks) => {
         withBorder
       >
         <Group className="max-sm:p-1" justify={"space-between"}>
-          <Text className="max-sm:text-sm font-medium">{props.task}</Text>
+          <Text className="max-sm:text-sm font-medium">{props.name}</Text>
           <Badge color={color[props.status.replace(" ", "")]} size="xs">
             {props.status}
           </Badge>
