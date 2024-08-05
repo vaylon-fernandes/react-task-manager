@@ -19,6 +19,7 @@ import { addTaskSchema } from "../schema/addTaskSchema";
 import { useEffect, useState } from "react";
 import { ITasks } from "../interfaces/ITasks";
 import axios from "../lib/axios";
+import { IApiResponse } from "../interfaces/IApiResponse";
 
 export const TaskManager = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -29,21 +30,26 @@ export const TaskManager = () => {
     },
     validate: yupResolver(addTaskSchema),
   });
-
+  const getTasks = async () =>
+    await axios
+      .get<IApiResponse<ITasks[]>>("/ToDoItems")
+      .then((res) => setTasks(res.data.data));
   // const taskManager = useManageTasks();
   const [tasks, setTasks] = useState<ITasks[]>([]);
   useEffect(() => {
-    const data = async () =>
-      await axios.get("/ToDoItems").then((res) => setTasks(res.data));
     // console.log(data);
-    data();
+    getTasks();
     // setTasks(taskManager.tasks);
   }, []);
 
   const handleSubmit = async (data: ITasks) =>
-    await axios
-      .post("/ToDoItems", { ...data })
-      .then((res) => setTasks((prevTasks) => [...prevTasks, res.data]));
+    await axios.post("/ToDoItems", { ...data }).then((res) => {
+      if (res.status === 200) {
+        // setTasks([...tasks, res.data.data]);
+        getTasks();
+        form.reset();
+      }
+    });
 
   // const handleSubmit = async (data: ITasks) => await console.log(data);
 
@@ -81,7 +87,6 @@ export const TaskManager = () => {
                 <form
                   onSubmit={form.onSubmit((values) => {
                     // taskManager.addTask(values);
-                    console.log(values);
                     handleSubmit(values);
                     close();
                     form.reset();

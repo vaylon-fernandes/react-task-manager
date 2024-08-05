@@ -1,12 +1,13 @@
 import { Table } from "@mantine/core";
 import { ITasks } from "../interfaces/ITasks";
+import { formatDateString } from "../utils/dateUtils";
 
 function TaskTable(props: { tasks: ITasks[] }) {
   const rows = props.tasks.map((task, index) => (
     <Table.Tr key={index}>
       <Table.Td>{task.name}</Table.Td>
       <Table.Td>{task.status}</Table.Td>
-      <Table.Td>{task.createdAt}</Table.Td>
+      <Table.Td>{formatDateString(task?.createdAt ?? "")}</Table.Td>
     </Table.Tr>
   ));
 

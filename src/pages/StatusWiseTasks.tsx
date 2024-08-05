@@ -6,13 +6,16 @@ import ThemeSwitch from "../components/ThemeSwitch";
 import axios from "../lib/axios";
 import { useState, useEffect } from "react";
 import { ITasks } from "../interfaces/ITasks";
+import { IApiResponse } from "../interfaces/IApiResponse";
 
 const StatusWiseTasks = () => {
   // const taskManager = useManageTasks();
   const [tasks, setTasks] = useState<ITasks[]>([]);
   useEffect(() => {
     const data = async () =>
-      await axios.get("/ToDoItems").then((res) => setTasks(res.data));
+      await axios
+        .get<IApiResponse<ITasks[]>>("/ToDoItems")
+        .then((res) => setTasks(res.data.data));
     // console.log(data);
     data();
     // setTasks(taskManager.tasks);
