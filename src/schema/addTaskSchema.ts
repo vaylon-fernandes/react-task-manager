@@ -1,6 +1,6 @@
 import { object, string } from "yup";
 
 export const addTaskSchema = object().shape({
-    task:string().required(),
+    name:string().required(),
     status:string().required()
 })

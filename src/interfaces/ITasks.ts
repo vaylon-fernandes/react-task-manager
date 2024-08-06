@@ -1,4 +1,5 @@
 export interface ITasks {
-  task: string;
+  name: string;
   status: string;
+  createdAt?:string;
 }

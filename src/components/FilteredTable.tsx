@@ -6,7 +6,7 @@ function FilteredTable(props: { tasks: ITasks[] }) {
   const filterByStatus = (status: string) =>
     props.tasks.flatMap((task) =>
       task.status === status ? (
-        <TaskCard task={task.task} status={task.status} />
+        <TaskCard name={task.name} status={task.status} />
       ) : (
         []
       )
